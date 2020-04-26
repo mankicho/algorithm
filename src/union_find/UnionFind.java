@@ -27,10 +27,14 @@ public class UnionFind {
 
     public void union(int x, int y) {
         x = find(x);
-        System.out.println("x = " + x);
         y = find(y);
-        System.out.println("y = " + y);
 
         root[y] = x;
+    }
+
+    public void print() {
+        for (int i = 0; i < root.length; i++) {
+            System.out.println("root[" + i + "] ==> " + root[i]);
+        }
     }
 }

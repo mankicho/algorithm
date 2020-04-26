@@ -1,4 +1,6 @@
 import sort.*;
+import union_find.PathCompression;
+import union_find.RankUnionFind;
 import union_find.UnionFind;
 
 import java.util.Arrays;
@@ -49,5 +51,14 @@ public class Main {
 //        arr = CountingSort.countSort(arr, max);
 //        System.out.println(Arrays.toString(arr));
 
+        PathCompression pathCompression = new PathCompression(8);
+        pathCompression.union(1, 3);
+        pathCompression.union(7, 6);
+        pathCompression.union(7, 1);
+        pathCompression.union(3, 7);
+        pathCompression.union(4, 2);
+        pathCompression.union(1, 1);
+
+        pathCompression.print();
     }
 }
