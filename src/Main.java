@@ -1,6 +1,9 @@
 import sort.*;
+import union_find.UnionFind;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
 
@@ -37,13 +40,14 @@ public class Main {
 //        System.out.println(Arrays.toString(arr));
 
         // countingSort
-        int max = arr[0];
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] > max) {
-                max = arr[i];
-            }
-        }
-        arr = CountingSort.countSort(arr, max);
-        System.out.println(Arrays.toString(arr));
+//        int max = arr[0];
+//        for (int i = 0; i < arr.length; i++) {
+//            if (arr[i] > max) {
+//                max = arr[i];
+//            }
+//        }
+//        arr = CountingSort.countSort(arr, max);
+//        System.out.println(Arrays.toString(arr));
+
     }
 }
