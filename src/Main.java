@@ -1,11 +1,13 @@
+import dynamic.Fibonacci;
+import dynamic.LongestCommonSubsequence;
+import dynamic.MatrixPath;
+import dynamic.StoneLaying;
 import sort.*;
 import union_find.PathCompression;
 import union_find.RankUnionFind;
 import union_find.UnionFind;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
 
@@ -51,14 +53,38 @@ public class Main {
 //        arr = CountingSort.countSort(arr, max);
 //        System.out.println(Arrays.toString(arr));
 
-        PathCompression pathCompression = new PathCompression(8);
-        pathCompression.union(1, 3);
-        pathCompression.union(7, 6);
-        pathCompression.union(7, 1);
-        pathCompression.union(3, 7);
-        pathCompression.union(4, 2);
-        pathCompression.union(1, 1);
+//        PathCompression pathCompression = new PathCompression(8);
+//        pathCompression.union(1, 3);
+//        pathCompression.union(7, 6);
+//        pathCompression.union(7, 1);
+//        pathCompression.union(3, 7);
+//        pathCompression.union(4, 2);
+//        pathCompression.union(1, 1);
+//
+//        pathCompression.print();
+//
+//        List<int[][]> tmp = new ArrayList<>();
+//        tmp.add(new int[20][1]);
+//        tmp.add(new int[1][30]);
+//        tmp.add(new int[30][10]);
+//        tmp.add(new int[10][10]);
+//
+//        StoneLaying laying = new StoneLaying(tmp);
+//
+//        System.out.println(laying.getMin()[0][3]);
 
-        pathCompression.print();
+//        for (int i = 5; i > 0; i--) {
+//            for (int j = 0; j < i; j++) {
+//                System.out.print("*");
+//            }
+//            System.out.println();
+//        }
+
+        String str1 = "abacacbbbacb";
+        String str2 = "abacacbbcbacab";
+
+        LongestCommonSubsequence lcs = new LongestCommonSubsequence(str1, str2);
+        System.out.println(lcs.lcs(str1.length() - 1, str2.length() - 1));
+
     }
 }
