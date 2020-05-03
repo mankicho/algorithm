@@ -2,6 +2,9 @@ import dynamic.Fibonacci;
 import dynamic.LongestCommonSubsequence;
 import dynamic.MatrixPath;
 import dynamic.StoneLaying;
+import graph.BreadthFirstSearch;
+import graph.DepthFirstSearch;
+import minCostExpansionTree.Prim;
 import sort.*;
 import union_find.PathCompression;
 import union_find.RankUnionFind;
@@ -80,11 +83,22 @@ public class Main {
 //            System.out.println();
 //        }
 
-        String str1 = "abacacbbbacb";
-        String str2 = "abacacbbcbacab";
+//        String str1 = "abacacbbbacb";
+//        String str2 = "abacacbbcbacab";
+//
+//        LongestCommonSubsequence lcs = new LongestCommonSubsequence(str1, str2);
+//        System.out.println(lcs.lcs(str1.length() - 1, str2.length() - 1));
+//
 
-        LongestCommonSubsequence lcs = new LongestCommonSubsequence(str1, str2);
-        System.out.println(lcs.lcs(str1.length() - 1, str2.length() - 1));
+        int[][] graph = {{0, 6, 7, Integer.MAX_VALUE, 10, 9},
+                {6, 0, 8, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE},
+                {7, 8, 0, 4, 5, Integer.MAX_VALUE},
+                {Integer.MAX_VALUE, Integer.MAX_VALUE, 4, 0, 3, 11},
+                {10, Integer.MAX_VALUE, 5, 3, 0, 11},
+                {9, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 11, 0},};
 
+        Prim prim = new Prim(graph);
+        prim.prim(0);
+        prim.print();
     }
 }
