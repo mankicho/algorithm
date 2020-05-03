@@ -4,6 +4,7 @@ import dynamic.MatrixPath;
 import dynamic.StoneLaying;
 import graph.BreadthFirstSearch;
 import graph.DepthFirstSearch;
+import minCostExpansionTree.Kruskal;
 import minCostExpansionTree.Prim;
 import sort.*;
 import union_find.PathCompression;
@@ -91,14 +92,13 @@ public class Main {
 //
 
         int[][] graph = {{0, 6, 7, Integer.MAX_VALUE, 10, 9},
-                {6, 0, 8, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE},
-                {7, 8, 0, 4, 5, Integer.MAX_VALUE},
-                {Integer.MAX_VALUE, Integer.MAX_VALUE, 4, 0, 3, 11},
-                {10, Integer.MAX_VALUE, 5, 3, 0, 11},
-                {9, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 11, 0},};
+                {Integer.MAX_VALUE, Integer.MAX_VALUE, 8, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE},
+                {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 4, 5, Integer.MAX_VALUE},
+                {Integer.MAX_VALUE, Integer.MAX_VALUE, 0, 0, 3, 11},
+                {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 0, 11},
+                {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 0},};
 
-        Prim prim = new Prim(graph);
-        prim.prim(0);
-        prim.print();
+        Kruskal k = new Kruskal(graph);
+        k.kruskal();
     }
 }

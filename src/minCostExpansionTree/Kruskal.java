@@ -1,40 +1,71 @@
 package minCostExpansionTree;
 
-import union_find.UnionFind;
+import java.util.PriorityQueue;
 
 // 사이클을 만들지 않으면서 최소 비용 간선을 하나씩 더해가는것
 public class Kruskal {
-    private int[][] graph;
-    private int[][] result;
-    
+    private int[] parent;
+    private PriorityQueue<Node> queue;
+
     public Kruskal(int[][] graph) {
-        this.graph = graph;
-        result = new int[2][graph.length];
+        queue = new PriorityQueue<>();
+
+        for (int i = 0; i < graph.length; i++) {
+            for (int j = 0; j < graph[i].length; j++) {
+                if (graph[i][j] == 0 || graph[i][j] == Integer.MAX_VALUE) {
+                    continue;
+                }
+                queue.add(new Node(i, j, graph[i][j]));
+            }
+        }
+        parent = new int[graph.length];
+
+        for (int i = 0; i < parent.length; i++) {
+            parent[i] = i;
+        }
+
     }
 
-    public void kruskcal() {
-        int min = Integer.MAX_VALUE;
-        int relationLine = 0;
+    private int find(int a) {
+        if (a == parent[a]) {
+            return a;
+        }
+        parent[a] = find(parent[a]);
+        return parent[a];
+    }
 
-        while (relationLine < graph.length) {
-            int row = 0;
-            int col = 0;
-            for (int i = 0; i < graph.length; i++) {
-                for (int j = 0; j < graph[j].length; j++) {
-                    if (graph[i][j] == Integer.MAX_VALUE) {
-                        continue;
-                    }
-                    if (graph[i][j] <= min) {
-                        min = graph[i][j];
-                        row = i;
-                        col = j;
-                    }
-                }
-            }
-            result[0][relationLine] = row;
-            result[1][relationLine] = col;
-
-            relationLine++;
+    private void union(int a, int b) {
+        int aRoot = find(a);
+        int bRoot = find(b);
+        if (aRoot != bRoot) {
+            parent[aRoot] = b;
+        } else {
+            return;
         }
     }
+
+    public void kruskal() {
+        int result = 0;
+        while (!queue.isEmpty()) {
+            Node pollNode = queue.poll();
+            int s = pollNode.getS();
+            int e = pollNode.getE();
+            int v = pollNode.getV();
+
+            int a = find(s);
+            int b = find(e);
+
+            if (a == b) {
+                continue;
+            }
+            System.out.println(pollNode);
+
+            union(a, b);
+            result += v;
+        }
+
+        System.out.println("result = " + result);
+    }
+
+
 }
