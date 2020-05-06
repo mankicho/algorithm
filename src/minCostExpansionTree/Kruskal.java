@@ -11,8 +11,8 @@ public class Kruskal {
         queue = new PriorityQueue<>();
 
         for (int i = 0; i < graph.length; i++) {
-            for (int j = 0; j < graph[i].length; j++) {
-                if (graph[i][j] == 0 || graph[i][j] == Integer.MAX_VALUE) {
+            for (int j = i + 1; j < graph[i].length; j++) {
+                if (graph[i][j] == Integer.MAX_VALUE) {
                     continue;
                 }
                 queue.add(new Node(i, j, graph[i][j]));

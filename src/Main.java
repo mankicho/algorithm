@@ -1,104 +1,60 @@
-import dynamic.Fibonacci;
-import dynamic.LongestCommonSubsequence;
-import dynamic.MatrixPath;
-import dynamic.StoneLaying;
-import graph.BreadthFirstSearch;
-import graph.DepthFirstSearch;
-import minCostExpansionTree.Kruskal;
-import minCostExpansionTree.Prim;
-import sort.*;
-import union_find.PathCompression;
-import union_find.RankUnionFind;
-import union_find.UnionFind;
+
+import minCostExpansionTree.Node;
+import shortestPath.BellmanFord;
+import shortestPath.Dijkstra;
 
 import java.util.*;
 
 public class Main {
 
-    private static int[] arr = new int[]{8, 31, 48, 73, 3, 65, 20, 29, 11, 15};
+
+    static Node[] nodes;
+    static private int V;
+    static private int E;
 
     public static void main(String[] args) {
+        int[] distance;
+//        int[][] graph = {{0, 8, 11, 9, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE},
+//                {Integer.MAX_VALUE, 0, Integer.MAX_VALUE, Integer.MAX_VALUE, 10, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE},
+//                {Integer.MAX_VALUE, Integer.MAX_VALUE, 0, Integer.MAX_VALUE, Integer.MAX_VALUE, 8, 8, Integer.MAX_VALUE},
+//                {Integer.MAX_VALUE, Integer.MAX_VALUE, 3, 0, 1, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE},
+//                {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 0, Integer.MAX_VALUE, Integer.MAX_VALUE, 2},
+//                {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 0, 7, Integer.MAX_VALUE},
+//                {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 12, Integer.MAX_VALUE, Integer.MAX_VALUE, 0, 5},
+//                {Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,4,Integer.MAX_VALUE,0}};
 
-        // selectionSort
-//        SelectionSort.selectionSort(arr);
-//        System.out.println(Arrays.toString(arr));
+        Scanner scanner = new Scanner(System.in);
 
-        // bubbleSort
-//        BubbleSort.bubbleSort(arr);
-//        System.out.println(Arrays.toString(arr));
+        String str = scanner.nextLine();
+        String[] strings = str.split(" ");
+        V = Integer.parseInt(strings[0]);
+        E = Integer.parseInt(strings[1]);
 
-        // insertionSort
-//        InsertionSort.insertionSort(arr);
-//        System.out.println(Arrays.toString(arr));
+        String str2 = scanner.nextLine().trim();
+        int start = Integer.parseInt(str2);
 
-        // mergeSort
-//        MergeSort.mergeSort(arr, 0, arr.length - 1);
-//        System.out.println(Arrays.toString(arr));
+        List<List<Node>> nodeList = new ArrayList<>();
 
-        // quickSort
-//        QuickSort.quickSort(arr,0,arr.length-1);
-//        System.out.println(Arrays.toString(arr));
+        for (int i = 0; i <= V; i++) {
+            nodeList.add(new ArrayList<>());
+        }
 
-        // heapSort
-//        HeapSort.buildHeap(arr);
-//        System.out.println(Arrays.toString(arr));
+        for (int i = 0; i < E; i++) {
+            String line = scanner.nextLine();
+            String[] split = line.split(" ");
+            int a = Integer.parseInt(split[0]);
+            int b = Integer.parseInt(split[1]);
+            int c = Integer.parseInt(split[2]);
 
-        // radixSort
-//        RadixSort.radixSort(arr);
-//        System.out.println(Arrays.toString(arr));
+            nodeList.get(a).add(new Node(a, b, c));
+        }
 
-        // countingSort
-//        int max = arr[0];
-//        for (int i = 0; i < arr.length; i++) {
-//            if (arr[i] > max) {
-//                max = arr[i];
-//            }
-//        }
-//        arr = CountingSort.countSort(arr, max);
-//        System.out.println(Arrays.toString(arr));
-
-//        PathCompression pathCompression = new PathCompression(8);
-//        pathCompression.union(1, 3);
-//        pathCompression.union(7, 6);
-//        pathCompression.union(7, 1);
-//        pathCompression.union(3, 7);
-//        pathCompression.union(4, 2);
-//        pathCompression.union(1, 1);
-//
-//        pathCompression.print();
-//
-//        List<int[][]> tmp = new ArrayList<>();
-//        tmp.add(new int[20][1]);
-//        tmp.add(new int[1][30]);
-//        tmp.add(new int[30][10]);
-//        tmp.add(new int[10][10]);
-//
-//        StoneLaying laying = new StoneLaying(tmp);
-//
-//        System.out.println(laying.getMin()[0][3]);
-
-//        for (int i = 5; i > 0; i--) {
-//            for (int j = 0; j < i; j++) {
-//                System.out.print("*");
-//            }
-//            System.out.println();
-//        }
-
-//        String str1 = "abacacbbbacb";
-//        String str2 = "abacacbbcbacab";
-//
-//        LongestCommonSubsequence lcs = new LongestCommonSubsequence(str1, str2);
-//        System.out.println(lcs.lcs(str1.length() - 1, str2.length() - 1));
-//
-
-        int[][] graph = {{0, 6, 7, Integer.MAX_VALUE, 10, 9},
-                {Integer.MAX_VALUE, Integer.MAX_VALUE, 8, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE},
-                {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 4, 5, Integer.MAX_VALUE},
-                {Integer.MAX_VALUE, Integer.MAX_VALUE, 0, 0, 3, 11},
-                {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 0, 11},
-                {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 0},};
-
-        Kruskal k = new Kruskal(graph);
-        k.kruskal();
+        for (int i = 0; i < nodeList.size(); i++) {
+            System.out.println(nodeList.get(i));
+        }
+        List<Integer> list = BellmanFord.solve(nodeList,start);
+        System.out.println(list);
     }
+
+
 }
