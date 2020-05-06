@@ -8,53 +8,41 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 public class BellmanFord {
-    public static final int INF = Integer.MAX_VALUE;
 
-    public static void solve(int[][] adj, int start) {
-        int num = adj.length;
-        int[] dists = new int[num];
-        Arrays.fill(dists, INF);
-        dists[start] = 0;
+    private Node[] nodes;
+    private int size;
 
-        for (int v = 0; v < num; ++v) {
-            for (int w = 0; w < num; ++w) {
-                if (adj[v][w] != INF)
-                    dists[w] = Math.min(dists[w], dists[v] + adj[v][w]);
-            }
-        }
-
-        for (int i = 0; i < num; ++i)
-            System.out.println(dists[i]);
+    public BellmanFord(Node[] nodes, int size) {
+        this.nodes = nodes;
+        this.size = size;
     }
 
-    public static List<Integer> solve(List<List<Node>> lists, int start) {
-        int num = lists.size();
-
-        List<Integer> upper = new ArrayList<Integer>();
-        upper.add(0);
-        for (int i = 1; i < num; i++) {
-            upper.add(Integer.MAX_VALUE);
+    public int[] bellmanFord(int start) {
+        int[] distance = new int[size + 1];
+        for (int i = 1; i < distance.length; i++) {
+            distance[i] = Integer.MAX_VALUE;
         }
-        upper.set(start, 0);
-        boolean updated = false; // V번 순회한다.
-        for (int i = 1; i < num; i++) {
-            updated = false;
-            for (int here = 1; here < num; here++) {
-                for (int j = 1; j < lists.get(here).size(); j++) {
-                    int there = lists.get(here).get(j).getE();
-                    int cost = lists.get(here).get(j).getV(); // (here, there) 간선을 따라 완화를 시도한다.
-                    if (upper.get(there) > upper.get(here) + cost) { // 성공
-                        upper.set(there, upper.get(here) + cost);
-                        updated = true;
+        distance[start] = 0;
+
+        boolean isCycle = false;
+        for (int i = 0; i <= size+1; i++) {
+            System.out.println("[" + i + "] = " + i);
+            for (int j = 0; j < nodes.length; j++) {
+                System.out.println("getS() =" + nodes[j].getS() + "," + "getE() =" + nodes[j].getE());
+                if (distance[nodes[j].getS()] != Integer.MAX_VALUE && distance[nodes[j].getE()] > distance[nodes[j].getS()] + nodes[j].getV()) {
+                    distance[nodes[j].getE()] = distance[nodes[j].getS()] + nodes[j].getV();
+                    if (i == nodes.length) {
+                        isCycle = true;
                     }
-                } // 모든 간선에 대해 완화가 실패했을 경우 V-1번도 돌 필요 없이 곧장 종료.
-                if (!updated) break;
+                }
             }
-
+            System.out.println(Arrays.toString(distance));
         }
-        // V번째 순회에서도 완화가 성공했다면 음수 사이클이 있다.
-        if (updated) upper.clear();
-        return upper;
 
+        if (isCycle) {
+            return null;
+        } else {
+            return distance;
+        }
     }
 }

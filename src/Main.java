@@ -1,4 +1,5 @@
 
+import graph.StrongConnection;
 import minCostExpansionTree.Node;
 import shortestPath.BellmanFord;
 import shortestPath.Dijkstra;
@@ -33,12 +34,12 @@ public class Main {
         String str2 = scanner.nextLine().trim();
         int start = Integer.parseInt(str2);
 
-        List<List<Node>> nodeList = new ArrayList<>();
-
-        for (int i = 0; i <= V; i++) {
-            nodeList.add(new ArrayList<>());
+        List<Node>[] lists = new List[V + 1];
+        List<Node>[] reLists = new List[V + 1];
+        for (int i = 0; i < lists.length; i++) {
+            lists[i] = new ArrayList<>();
+            reLists[i] = new ArrayList<>();
         }
-
         for (int i = 0; i < E; i++) {
             String line = scanner.nextLine();
             String[] split = line.split(" ");
@@ -46,14 +47,18 @@ public class Main {
             int b = Integer.parseInt(split[1]);
             int c = Integer.parseInt(split[2]);
 
-            nodeList.get(a).add(new Node(a, b, c));
+            lists[a].add(new Node(b, c));
+            reLists[b].add(new Node(a, c));
         }
 
-        for (int i = 0; i < nodeList.size(); i++) {
-            System.out.println(nodeList.get(i));
+        for (int i = 0; i < lists.length; i++) {
+            System.out.println("i = " + i);
+            System.out.println("list = " + lists[i]);
+            System.out.println("reList = " + reLists[i]);
+            System.out.println();
         }
-        List<Integer> list = BellmanFord.solve(nodeList,start);
-        System.out.println(list);
+        StrongConnection connection = new StrongConnection(lists, reLists);
+        connection.print();
     }
 
 

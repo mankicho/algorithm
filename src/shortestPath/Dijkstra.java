@@ -55,7 +55,7 @@ public class Dijkstra {
         pq.add(new Node(start, 0));
 
         while (!pq.isEmpty()) {
-            int now = pq.poll().getE();
+            int now = pq.poll().getS(); // 시작 노드
 
             if (visited[now]) {
                 continue;
@@ -63,7 +63,7 @@ public class Dijkstra {
             visited[now] = true;
 
             for (Node node : list.get(now)) {
-                if (dis[node.getE()] > dis[now] + node.getV()) {
+                if (dis[node.getE()] > dis[now] + node.getV()) { //
                     dis[node.getE()] = dis[now] + node.getV();
                     pq.add(new Node(node.getE(), dis[node.getE()]));
                 }
